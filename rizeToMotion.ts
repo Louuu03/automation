@@ -157,8 +157,11 @@ export const deleteMotion = async (id: string) => {
     );
     console.log("Motion task deleted");
     return response.data;
-  } catch (error) {
-    console.error("Error deleting Motion task");
+  } catch (error: any) {
+    const { status, statusText, data } = error.response;
+    console.error("Error updating Motion task");
+    console.error(`Status: ${status} ${statusText}`);
+    console.error("Response data:", JSON.stringify(data, null, 2));
   }
 };
 
