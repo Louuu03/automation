@@ -135,7 +135,10 @@ export const createMotion = async (data: CleanedData) => {
     console.log("Motion task created");
     return response.data;
   } catch (error: any) {
-    console.error("Error creating Motion task");
+    const { status, statusText, data } = error.response;
+    console.error("Error updating Motion task");
+    console.error(`Status: ${status} ${statusText}`);
+    console.error("Response data:", JSON.stringify(data, null, 2));
   }
 };
 
