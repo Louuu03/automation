@@ -7,10 +7,11 @@ const status: { [key: string]: string } = {
   sc901803724845_0ZNAayPf: "completed",
   sc901803724845_fiwnjcAP: "to do",
   sc901803724845_0wPgkbct: "fixing",
+  sc901803724845_hTR8GvaY: "TBD",
 };
 const TRANX_WORKSPACE_ID = "fcO6QxE1rF5XXLheI97Sy";
 const LOU_ID = "Ol2eJ2a8CPgyU9WoTrtQZfdLObj2";
-const Lou_CLICKUP_ID = "89513032";
+const Lou_CLICKUP_ID = 89513032;
 
 export const clickupToMotion = async (webhookData: any) => {
   if (!webhookData) return;
