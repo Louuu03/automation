@@ -112,8 +112,10 @@ export const createMotion = async (data: CleanedData) => {
           " / " +
           data?.type +
           ": " +
+          "\n" +
           data.description +
-          ", " +
+          "\n" +
+          "start time: " +
           new Date(data.startTime).toLocaleString(),
         duration: data.duration,
         workspaceId:
@@ -148,9 +150,10 @@ export const updateMotion = async (data: CleanedData, id: string) => {
           data?.title +
           " / " +
           data?.type +
-          ": " +
+          "\n" +
           data.description +
-          ", " +
+          "\n" +
+          "start time: " +
           new Date(data.startTime).toLocaleString(),
         duration: data.duration,
         workspaceId:
@@ -169,7 +172,7 @@ export const updateMotion = async (data: CleanedData, id: string) => {
     console.log("Motion task updated");
     return response.data;
   } catch (error) {
-    console.error("Error updating Motion task");
+    console.error("Error updating Motion task", error);
   }
 };
 
