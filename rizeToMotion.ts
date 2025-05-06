@@ -56,6 +56,7 @@ export const cleanUpRizeData = async (
   if (webhookData.event_type === "session_timer_stopped") {
     return {
       type: isExsit ? "update" : "create",
+      id: isExsit as string,
       data: {
         startTime: start_time,
         title,
@@ -69,6 +70,7 @@ export const cleanUpRizeData = async (
   } else if (webhookData.event_type === "time_entry_created") {
     return {
       type: isExsit ? "update" : "create",
+      id: isExsit as string,
       data: {
         startTime: start_time,
         title,
