@@ -8,20 +8,24 @@ const status: { [key: string]: string } = {
   sc901803724845_fiwnjcAP: "to do",
   sc901803724845_0wPgkbct: "fixing",
 };
+const TRANX_WORKSPACE_ID = "fcO6QxE1rF5XXLheI97Sy";
+const LOU_ID = "Ol2eJ2a8CPgyU9WoTrtQZfdLObj2";
+const Lou_CLICKUP_ID = "89513032";
 
 export const clickupToMotion = async (webhookData: any) => {
   if (!webhookData) return;
-  const { status_id, name } = webhookData.payload;
+  const { status_id, name, users } = webhookData.payload;
+  const asignee = users.find((user: any) => user.type === "assigned");
+  console.log("asignee", asignee, users);
+  if (asignee?.userid !== Lou_CLICKUP_ID) return;
   const motionApiKey = process.env.MOTION_API_KEY || "";
-  const TRANX_WORKSPACE_ID = "fcO6QxE1rF5XXLheI97Sy";
-  const LOU_ID = "Ol2eJ2a8CPgyU9WoTrtQZfdLObj2";
 
   try {
     const response = await axios.post(
       "https://api.usemotion.com/v1/tasks",
       {
         name: "Task " + status[status_id as string] + " - " + name,
-        description: webhookData.date.toLocaleString(),
+        description: new Date(webhookData.date).toLocaleString(),
         workspaceId: TRANX_WORKSPACE_ID,
         status: "Completed",
         assigneeId: LOU_ID,

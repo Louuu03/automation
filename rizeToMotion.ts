@@ -114,7 +114,7 @@ export const createMotion = async (data: CleanedData) => {
           ": " +
           data.description +
           ", " +
-          data.startTime.toLocaleString(),
+          new Date(data.startTime).toLocaleString(),
         duration: data.duration,
         workspaceId:
           data.client === "Tranx" ? TRANX_WORKSPACE_ID : ELPHYC_WORKSPACE_ID,
@@ -151,7 +151,7 @@ export const updateMotion = async (data: CleanedData, id: string) => {
           ": " +
           data.description +
           ", " +
-          data.startTime.toLocaleString(),
+          new Date(data.startTime).toLocaleString(),
         duration: data.duration,
         workspaceId:
           data.client === "Tranx" ? TRANX_WORKSPACE_ID : ELPHYC_WORKSPACE_ID,
