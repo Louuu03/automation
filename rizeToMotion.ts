@@ -22,7 +22,8 @@ export const rizeToMotion = async (webhookData: any) => {
   if (cleanedData.type === "create") {
     await createMotion(cleanedData.data!);
   } else if (cleanedData.type === "update") {
-    await updateMotion(cleanedData.data!, cleanedData.id as string);
+    await deleteMotion(cleanedData.id as string);
+    await createMotion(cleanedData.data!);
   } else if (cleanedData.type === "delete") {
     await deleteMotion(cleanedData.id as string);
   }
@@ -135,48 +136,6 @@ export const createMotion = async (data: CleanedData) => {
     return response.data;
   } catch (error: any) {
     console.error("Error creating Motion task");
-  }
-};
-
-export const updateMotion = async (data: CleanedData, id: string) => {
-  console.log("updateMotion");
-  const motionApiKey = process.env.MOTION_API_KEY || "";
-  try {
-    const response = await axios.patch(
-      "https://api.usemotion.com/v1/tasks/" + id,
-      {
-        name: "Work time - " + data.client + " - " + data.id,
-        description:
-          data?.title +
-          " / " +
-          data?.type +
-          "\n" +
-          data.description +
-          "\n" +
-          "start time: " +
-          new Date(data.startTime).toLocaleString(),
-        duration: data.duration,
-        workspaceId:
-          data.client === "Tranx" ? TRANX_WORKSPACE_ID : ELPHYC_WORKSPACE_ID,
-        status: "Completed",
-        assigneeId: LOU_ID,
-        labels: ["Rize"],
-      },
-      {
-        headers: {
-          "X-API-Key": motionApiKey,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log("Motion task updated");
-    return response.data;
-  } catch (err) {
-    const error = err as any;
-    const { status, statusText, data } = error.response;
-    console.error("Error updating Motion task");
-    console.error(`Status: ${status} ${statusText}`);
-    console.error("Response data:", JSON.stringify(data, null, 2));
   }
 };
 
