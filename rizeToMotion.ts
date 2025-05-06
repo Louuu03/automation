@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -171,8 +171,12 @@ export const updateMotion = async (data: CleanedData, id: string) => {
     );
     console.log("Motion task updated");
     return response.data;
-  } catch (error) {
-    console.error("Error updating Motion task", error);
+  } catch (err) {
+    const error = err as any;
+    const { status, statusText, data } = error.response;
+    console.error("Error updating Motion task");
+    console.error(`Status: ${status} ${statusText}`);
+    console.error("Response data:", JSON.stringify(data, null, 2));
   }
 };
 
